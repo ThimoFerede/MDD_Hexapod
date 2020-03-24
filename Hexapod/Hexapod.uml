@@ -5,7 +5,7 @@
       <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_29q8Yh2YEeiOdLlXkz7odA" key="language" value="umlrt-cpp"/>
     </eAnnotations>
     <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_vFr5MB2oEeiOdLlXkz7odA" source="UMLRT_Default_top">
-      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_vFr5MR2oEeiOdLlXkz7odA" key="top_name" value="Top"/>
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_vFr5MR2oEeiOdLlXkz7odA" key="top_name" value="Hexapod"/>
     </eAnnotations>
     <packagedElement xmi:type="uml:Class" xmi:id="_9ddqUB2YEeiOdLlXkz7odA" name="Leg" classifierBehavior="_5H1c0B8XEeilladb2sZkNg" isActive="true">
       <ownedAttribute xmi:type="uml:Port" xmi:id="_bldGsB2bEeiOdLlXkz7odA" name="legPort" visibility="public" type="_kZtcgB2ZEeiOdLlXkz7odA" isOrdered="true" aggregation="composite" isBehavior="true" isConjugated="true" isService="true">
@@ -394,6 +394,21 @@ if (! tid.isValid() ) { log.log(&quot;Failed to create timer&quot;); }</body>
       <ownedAttribute xmi:type="uml:Property" xmi:id="_xu4XsGrHEeqmCabxcsMMSg" name="readyCounter" visibility="public">
         <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusC_Cpp_LIBRARIES/AnsiCLibrary.uml#_V3dAkOmJEeG_gcDHG3asaQ"/>
       </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_aaCq4G3KEeq_YbE1tyF8gg" name="shouldFreeze" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusC_Cpp_LIBRARIES/AnsiCLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_eYs40G3KEeq_YbE1tyF8gg"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_uQGkcG3MEeqY0pzmFpfkqA" name="readyMovingLegs" visibility="public">
+        <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusC_Cpp_LIBRARIES/AnsiCLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+        <defaultValue xmi:type="uml:LiteralBoolean" xmi:id="_yc1qoG3MEeqY0pzmFpfkqA"/>
+      </ownedAttribute>
+      <ownedAttribute xmi:type="uml:Property" xmi:id="_XpozQG3fEeqOA7pNlMXY2Q" name="lastActiveMovingPhase" visibility="public" type="_G22ykG3fEeqOA7pNlMXY2Q"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_r4NZ0G3pEeqrHZvnJfGjeA" name="freezingProtocolOutPort" visibility="protected" type="_sJbssG3pEeqrHZvnJfGjeA" isOrdered="true" aggregation="composite" isBehavior="true" isService="false"/>
+      <ownedAttribute xmi:type="uml:Port" xmi:id="_wqjugG3pEeqrHZvnJfGjeA" name="freezingProtocolInPort" visibility="protected" type="_sJbssG3pEeqrHZvnJfGjeA" isOrdered="true" aggregation="composite" isBehavior="true" isConjugated="true" isService="false"/>
+      <ownedConnector xmi:type="uml:Connector" xmi:id="_3qpGEG3pEeqrHZvnJfGjeA" name="RTConnector1">
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_3qriUG3pEeqrHZvnJfGjeA" role="_r4NZ0G3pEeqrHZvnJfGjeA"/>
+        <end xmi:type="uml:ConnectorEnd" xmi:id="_3qsJYG3pEeqrHZvnJfGjeA" role="_wqjugG3pEeqrHZvnJfGjeA"/>
+      </ownedConnector>
       <ownedBehavior xmi:type="uml:StateMachine" xmi:id="_Nbz5IGhUEeqGieUB53vJPw" name="HexapodSM" isReentrant="false">
         <region xmi:type="uml:Region" xmi:id="_NcDJsGhUEeqGieUB53vJPw" name="Region">
           <transition xmi:type="uml:Transition" xmi:id="_NcPW8GhUEeqGieUB53vJPw" name="Initial" source="_NcGNAGhUEeqGieUB53vJPw" target="_LhobgGqxEeqwq7OvInKglw">
@@ -418,9 +433,7 @@ tmove = UMLRTTimespec(30, 0);</body>
               <event xmi:type="uml:CallEvent" href="pathmap://UMLRTRTSLIB/UMLRT-RTS.uml#_IaEO8HDxEeSwWKwNKw1iAA"/>
             </trigger>
           </transition>
-          <transition xmi:type="uml:Transition" xmi:id="_jScOMGhUEeqGieUB53vJPw" name="freeze" kind="external" source="_PEbAQGhVEeqGieUB53vJPw" target="_Xe2EZmrFEeqmCabxcsMMSg">
-            <trigger xmi:type="uml:Trigger" xmi:id="_wUl14GhUEeqGieUB53vJPw" event="_WZ2Z8B2aEeiOdLlXkz7odA" port="_ABY7YGhUEeqGieUB53vJPw"/>
-          </transition>
+          <transition xmi:type="uml:Transition" xmi:id="_jScOMGhUEeqGieUB53vJPw" name="freeze" kind="external" source="_PEbAQGhVEeqGieUB53vJPw" target="_Xe2EZmrFEeqmCabxcsMMSg"/>
           <transition xmi:type="uml:Transition" xmi:id="_kiXlAGhUEeqGieUB53vJPw" name="unfreeze" kind="external" source="_Xe8K92rFEeqmCabxcsMMSg" target="_PEX88GhVEeqGieUB53vJPw">
             <trigger xmi:type="uml:Trigger" xmi:id="_yqk10GhUEeqGieUB53vJPw" event="_Ylxe8B2aEeiOdLlXkz7odA" port="_ABY7YGhUEeqGieUB53vJPw"/>
           </transition>
@@ -428,6 +441,21 @@ tmove = UMLRTTimespec(30, 0);</body>
             <trigger xmi:type="uml:Trigger" xmi:id="_jPrYoGhVEeqGieUB53vJPw" port="_gLMwcGhUEeqGieUB53vJPw">
               <event xmi:type="uml:CallEvent" href="pathmap://UMLRTRTSLIB/UMLRT-RTS.uml#_IaEO8HDxEeSwWKwNKw1iAA"/>
             </trigger>
+          </transition>
+          <transition xmi:type="uml:Transition" xmi:id="_n3XRAG3dEeqOA7pNlMXY2Q" name="" kind="external" source="_n2wNAG3dEeqOA7pNlMXY2Q" target="_UAMzMGhUEeqGieUB53vJPw">
+            <effect xmi:type="uml:OpaqueBehavior" xmi:id="_3RFNAG3dEeqOA7pNlMXY2Q" name="Effect" isReentrant="false">
+              <language>C++</language>
+              <body>log.show(&quot;Ignorring ready msg while from %s freezed.\n&quot;, getName());</body>
+            </effect>
+            <trigger xmi:type="uml:Trigger" xmi:id="_1sxk0G3hEeqBb_w6pLDx-Q" event="_zgNFEB2aEeiOdLlXkz7odA" port="_5Ggz8GhTEeqGieUB53vJPw"/>
+            <trigger xmi:type="uml:Trigger" xmi:id="_2nUhgG3hEeqBb_w6pLDx-Q" event="_zgNFEB2aEeiOdLlXkz7odA" port="_8H7WgGhTEeqGieUB53vJPw"/>
+          </transition>
+          <transition xmi:type="uml:Transition" xmi:id="_fA0KQG3hEeqBb_w6pLDx-Q" name="" kind="external" source="_fAQJkG3hEeqBb_w6pLDx-Q" target="_UAMzMGhUEeqGieUB53vJPw">
+            <effect xmi:type="uml:OpaqueBehavior" xmi:id="_w9HXwG3hEeqBb_w6pLDx-Q" name="Effect" isReentrant="false">
+              <language>C++</language>
+              <body>log.show(&quot;Ignoring alarm from sensor while freezed.\n&quot;);</body>
+            </effect>
+            <trigger xmi:type="uml:Trigger" xmi:id="_p1o-wG3hEeqBb_w6pLDx-Q" event="_WZ2Z8B2aEeiOdLlXkz7odA" port="_ABY7YGhUEeqGieUB53vJPw"/>
           </transition>
           <subvertex xmi:type="uml:Pseudostate" xmi:id="_NcGNAGhUEeqGieUB53vJPw" kind="initial"/>
           <subvertex xmi:type="uml:State" xmi:id="_NcMToGhUEeqGieUB53vJPw" name="Resting">
@@ -486,52 +514,171 @@ tmove = UMLRTTimespec(30, 0);</body>
 </body>
             </exit>
             <region xmi:type="uml:Region" xmi:id="_PEMWwGhVEeqGieUB53vJPw" name="Region1">
-              <transition xmi:type="uml:Transition" xmi:id="_TpcDkGhVEeqGieUB53vJPw" name="phase2" kind="external" source="_qLK8YGrMEeqmCabxcsMMSg" target="_REjE8GhVEeqGieUB53vJPw">
+              <transition xmi:type="uml:Transition" xmi:id="_TpcDkGhVEeqGieUB53vJPw" name="phase2" guard="_2K_tgG3DEeqIRLHr8fG-TA" kind="external" source="_qLK8YGrMEeqmCabxcsMMSg" target="_REjE8GhVEeqGieUB53vJPw">
                 <ownedRule xmi:type="uml:Constraint" xmi:id="_4DZ0UGrIEeqmCabxcsMMSg" name="Guard"/>
                 <ownedRule xmi:type="uml:Constraint" xmi:id="_ySXNUGrJEeqmCabxcsMMSg">
                   <specification xmi:type="uml:LiteralInteger" xmi:id="_ySXNUWrJEeqmCabxcsMMSg" name="readyCount" value="0"/>
                 </ownedRule>
+                <ownedRule xmi:type="uml:Constraint" xmi:id="_2K_tgG3DEeqIRLHr8fG-TA">
+                  <specification xmi:type="uml:OpaqueExpression" xmi:id="_2LD-8G3DEeqIRLHr8fG-TA">
+                    <language>C++</language>
+                    <body>readyCounter++;
+readyMovingLegs = (readyCounter >= 3);
+log.show(&quot;Moving phase 1 - > phase 2, guard triggered from %s\n&quot;, getName());
+return readyMovingLegs;</body>
+                  </specification>
+                </ownedRule>
+                <effect xmi:type="uml:OpaqueBehavior" xmi:id="_-1PEUG3EEeqo4agkPbHfgg" name="Effect" isReentrant="false">
+                  <language>C++</language>
+                  <body>log.show(&quot;Ready for moving phase 1 -> phase 2\n&quot;);</body>
+                </effect>
                 <trigger xmi:type="uml:Trigger" xmi:id="_Yd3soG0bEeqzqJNsmFNrDA" event="_zgNFEB2aEeiOdLlXkz7odA" port="_8H7WgGhTEeqGieUB53vJPw"/>
               </transition>
-              <transition xmi:type="uml:Transition" xmi:id="_VLJt8GhVEeqGieUB53vJPw" name="phase1" kind="external" source="_REjE8GhVEeqGieUB53vJPw" target="_qK-IEGrMEeqmCabxcsMMSg">
+              <transition xmi:type="uml:Transition" xmi:id="_VLJt8GhVEeqGieUB53vJPw" name="phase1" guard="_BskBUG3GEeqWctnSXB2XWw" kind="external" source="_REjE8GhVEeqGieUB53vJPw" target="_qK-IEGrMEeqmCabxcsMMSg">
+                <ownedRule xmi:type="uml:Constraint" xmi:id="_BskBUG3GEeqWctnSXB2XWw">
+                  <specification xmi:type="uml:OpaqueExpression" xmi:id="_BsnEoG3GEeqWctnSXB2XWw">
+                    <language>C++</language>
+                    <body>readyCounter++;
+readyMovingLegs = (readyCounter >= 3);
+log.show(&quot;Moving phase 2 - > phase 1, guard triggered from %s\n&quot;, getName());
+return readyMovingLegs;</body>
+                  </specification>
+                </ownedRule>
+                <effect xmi:type="uml:OpaqueBehavior" xmi:id="_yRrkgG3BEeqvlf_E2yEtDA" name="Effect" isReentrant="false">
+                  <language>C++</language>
+                  <body>log.show(&quot;Ready for moving phase 2 -> phase 1\n&quot;);</body>
+                </effect>
                 <trigger xmi:type="uml:Trigger" xmi:id="_fdvYEGhVEeqGieUB53vJPw" event="_zgNFEB2aEeiOdLlXkz7odA" port="_5Ggz8GhTEeqGieUB53vJPw"/>
               </transition>
-              <transition xmi:type="uml:Transition" xmi:id="_XXGBEGhVEeqGieUB53vJPw" name="move" kind="local" source="_PERPQGhVEeqGieUB53vJPw" target="_qLDAkGrMEeqmCabxcsMMSg"/>
-              <transition xmi:type="uml:Transition" xmi:id="_ZroPgGhVEeqGieUB53vJPw" name="unfreeze" kind="local" source="_PEX88GhVEeqGieUB53vJPw" target="_qLGD4GrMEeqmCabxcsMMSg"/>
+              <transition xmi:type="uml:Transition" xmi:id="_XXGBEGhVEeqGieUB53vJPw" name="move" kind="local" source="_PERPQGhVEeqGieUB53vJPw" target="_qLDAkGrMEeqmCabxcsMMSg">
+                <effect xmi:type="uml:OpaqueBehavior" xmi:id="_b8i9cG3gEeqL45DSpyHUnA" name="Effect" isReentrant="false">
+                  <language>C++</language>
+                  <body>lastActiveMovingPhase = Phase1;</body>
+                </effect>
+              </transition>
               <transition xmi:type="uml:Transition" xmi:id="_vl6v0Gq2EeqdupCD6s-Zwg" name="internal" kind="internal" source="_TTxyEGhUEeqGieUB53vJPw" target="_TTxyEGhUEeqGieUB53vJPw">
                 <trigger xmi:type="uml:Trigger" xmi:id="_0nH_4Gq2EeqdupCD6s-Zwg" event="_Ylxe8B2aEeiOdLlXkz7odA" port="_ABY7YGhUEeqGieUB53vJPw"/>
                 <trigger xmi:type="uml:Trigger" xmi:id="_Vf9VwGrFEeqmCabxcsMMSg" port="_fsNuYGhUEeqGieUB53vJPw">
                   <event xmi:type="uml:AnyReceiveEvent" href="pathmap://UMLRTRTSLIB/UMLRT-RTS.uml#_6kfBIIeXEeSVyrlWP4nYew"/>
                 </trigger>
               </transition>
+              <transition xmi:type="uml:Transition" xmi:id="_ohrOwG3cEequr7QZyHYfZg" name="" kind="external" source="_REjE8GhVEeqGieUB53vJPw" target="_mgHmsG3cEequr7QZyHYfZg">
+                <effect xmi:type="uml:OpaqueBehavior" xmi:id="__f6FEG3cEequr7QZyHYfZg" name="Effect" isReentrant="false">
+                  <language>C++</language>
+                  <body>log.show(&quot;Freezing while moving in phase 2.\n&quot;);</body>
+                </effect>
+                <trigger xmi:type="uml:Trigger" xmi:id="_ygdMEG3cEequr7QZyHYfZg" event="_WZ2Z8B2aEeiOdLlXkz7odA" port="_ABY7YGhUEeqGieUB53vJPw"/>
+              </transition>
+              <transition xmi:type="uml:Transition" xmi:id="_pcGPoG3cEequr7QZyHYfZg" name="" kind="external" source="_pcAJAG3cEequr7QZyHYfZg" target="_mgHmsG3cEequr7QZyHYfZg">
+                <effect xmi:type="uml:OpaqueBehavior" xmi:id="_9pVlAG3cEequr7QZyHYfZg" name="Effect" isReentrant="false">
+                  <language>C++</language>
+                  <body>log.show(&quot;Freezing while moving in phase 1.\n&quot;);</body>
+                </effect>
+                <trigger xmi:type="uml:Trigger" xmi:id="_xBBZoG3cEequr7QZyHYfZg" event="_WZ2Z8B2aEeiOdLlXkz7odA" port="_ABY7YGhUEeqGieUB53vJPw"/>
+              </transition>
+              <transition xmi:type="uml:Transition" xmi:id="_Hmr-8G3dEequr7QZyHYfZg" kind="local" source="_PEX88GhVEeqGieUB53vJPw" target="_DFymoG3dEequr7QZyHYfZg"/>
+              <transition xmi:type="uml:Transition" xmi:id="_IhRX4G3dEequr7QZyHYfZg" name="" guard="_2jT2IG3fEeqOA7pNlMXY2Q" kind="external" source="_DFymoG3dEequr7QZyHYfZg" target="_IhLRQG3dEequr7QZyHYfZg">
+                <ownedRule xmi:type="uml:Constraint" xmi:id="_2jT2IG3fEeqOA7pNlMXY2Q">
+                  <specification xmi:type="uml:OpaqueExpression" xmi:id="_2jUdMG3fEeqOA7pNlMXY2Q">
+                    <language>C++</language>
+                    <body>return (lastActiveMovingPhase != Phase1);</body>
+                  </specification>
+                </ownedRule>
+                <effect xmi:type="uml:OpaqueBehavior" xmi:id="_uM4WsG3fEeqOA7pNlMXY2Q" name="Effect" isReentrant="false">
+                  <language>C++</language>
+                  <body>log.show(&quot;Unfreezing and resuming moving phase 1.\n&quot;);</body>
+                </effect>
+                <trigger xmi:type="uml:Trigger" xmi:id="_d6CucG3sEeqL-pcoHBcZWg" event="_NxWCAG3rEequdfSGGP4knw" port="_wqjugG3pEeqrHZvnJfGjeA"/>
+              </transition>
+              <transition xmi:type="uml:Transition" xmi:id="_l9TtMG3fEeqOA7pNlMXY2Q" name="" guard="_18lNUG3fEeqOA7pNlMXY2Q" kind="external" source="_DFymoG3dEequr7QZyHYfZg" target="_REjE8GhVEeqGieUB53vJPw">
+                <ownedRule xmi:type="uml:Constraint" xmi:id="_18lNUG3fEeqOA7pNlMXY2Q">
+                  <specification xmi:type="uml:OpaqueExpression" xmi:id="_18l0YG3fEeqOA7pNlMXY2Q">
+                    <language>C++</language>
+                    <body>return (lastActiveMovingPhase != Phase2);</body>
+                  </specification>
+                </ownedRule>
+                <effect xmi:type="uml:OpaqueBehavior" xmi:id="_tni1AG3fEeqOA7pNlMXY2Q" name="Effect" isReentrant="false">
+                  <language>C++</language>
+                  <body>log.show(&quot;Unfreezing and resuming moving phase 2.\n&quot;);</body>
+                </effect>
+                <trigger xmi:type="uml:Trigger" xmi:id="_bN5RQG3sEeqL-pcoHBcZWg" event="_NxWCAG3rEequdfSGGP4knw" port="_wqjugG3pEeqrHZvnJfGjeA"/>
+              </transition>
+              <transition xmi:type="uml:Transition" xmi:id="_z8Pl4G3iEeqCR-zQFh7yeQ" name="" kind="external" source="_mgHmsG3cEequr7QZyHYfZg" target="_mgHmsG3cEequr7QZyHYfZg">
+                <effect xmi:type="uml:OpaqueBehavior" xmi:id="_RXm3sG3jEeqCR-zQFh7yeQ" name="Effect" isReentrant="false">
+                  <language>C++</language>
+                  <body>readyCounter++;
+readyMovingLegs = (readyCounter >= 3);</body>
+                </effect>
+                <trigger xmi:type="uml:Trigger" xmi:id="_GFSO4G3jEeqCR-zQFh7yeQ" event="_zgNFEB2aEeiOdLlXkz7odA" port="_5Ggz8GhTEeqGieUB53vJPw _8H7WgGhTEeqGieUB53vJPw"/>
+              </transition>
+              <transition xmi:type="uml:Transition" xmi:id="_1zEV4G3oEeqrHZvnJfGjeA" name="" kind="external" source="_mgHmsG3cEequr7QZyHYfZg" target="_PEbAQGhVEeqGieUB53vJPw">
+                <effect xmi:type="uml:OpaqueBehavior" xmi:id="__DLPUG3oEeqrHZvnJfGjeA" name="Effect" isReentrant="false">
+                  <language>C++</language>
+                  <body>log.show(&quot;All legs are done moving, continue with freezing.\n&quot;);</body>
+                </effect>
+                <trigger xmi:type="uml:Trigger" xmi:id="_IrL18G3qEeqrHZvnJfGjeA" event="_B1DroG3qEeqrHZvnJfGjeA" port="_wqjugG3pEeqrHZvnJfGjeA"/>
+              </transition>
+              <transition xmi:type="uml:Transition" xmi:id="_Q4OTYG3rEequdfSGGP4knw" name="" kind="external" source="_mgHmsG3cEequr7QZyHYfZg" target="_DFymoG3dEequr7QZyHYfZg">
+                <effect xmi:type="uml:OpaqueBehavior" xmi:id="_t3NyQG3rEequdfSGGP4knw" name="Effect" isReentrant="false">
+                  <language>C++</language>
+                  <body>log.show(&quot;No need to freze anymore. Resume moving...\n&quot;);</body>
+                </effect>
+                <trigger xmi:type="uml:Trigger" xmi:id="_d8IOkG3rEequdfSGGP4knw" event="_NxWCAG3rEequdfSGGP4knw" port="_wqjugG3pEeqrHZvnJfGjeA"/>
+              </transition>
+              <transition xmi:type="uml:Transition" xmi:id="_AEI1sG3sEequdfSGGP4knw" name="" kind="external" source="_mgHmsG3cEequr7QZyHYfZg" target="_mgHmsG3cEequr7QZyHYfZg">
+                <effect xmi:type="uml:OpaqueBehavior" xmi:id="_Gs7uoG3sEequdfSGGP4knw" name="Effect" isReentrant="false">
+                  <language>C++</language>
+                  <body>shouldFreeze = false;</body>
+                </effect>
+                <trigger xmi:type="uml:Trigger" xmi:id="_DlyXgG3sEequdfSGGP4knw" event="_Ylxe8B2aEeiOdLlXkz7odA" port="_ABY7YGhUEeqGieUB53vJPw"/>
+              </transition>
               <subvertex xmi:type="uml:State" xmi:id="_QAeY0GhVEeqGieUB53vJPw" name="Phase1">
                 <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_qK-IEGrMEeqmCabxcsMMSg" kind="entryPoint"/>
                 <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_qLDAkGrMEeqmCabxcsMMSg" kind="entryPoint"/>
-                <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_qLGD4GrMEeqmCabxcsMMSg" kind="entryPoint"/>
                 <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_qLK8YGrMEeqmCabxcsMMSg" kind="exitPoint"/>
+                <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_pcAJAG3cEequr7QZyHYfZg" kind="exitPoint"/>
+                <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_IhLRQG3dEequr7QZyHYfZg" kind="entryPoint"/>
                 <entry xmi:type="uml:OpaqueBehavior" xmi:id="_SM2e4GhXEeqGieUB53vJPw" name="Entry">
                   <language>C++</language>
-                  <body>    log.show(&quot;%s: Sending move to phase 1 legs\n&quot;, getName());
-    phase1Port.move().send();
+                  <body>log.show(&quot;%s: Sending move to phase 1 legs\n&quot;, getName());
+phase1Port.move().send();
+readyCounter = 0;
+readyMovingLegs = false;
+lastActiveMovingPhase = Phase1;
+
 </body>
                 </entry>
-                <region xmi:type="uml:Region" xmi:id="_qKTZsGrMEeqmCabxcsMMSg" name="Region1">
-                  <transition xmi:type="uml:Transition" xmi:id="_qKV18GrMEeqmCabxcsMMSg" name="ready" kind="internal" source="_QAeY0GhVEeqGieUB53vJPw" target="_QAeY0GhVEeqGieUB53vJPw">
-                    <effect xmi:type="uml:OpaqueBehavior" xmi:id="_17OqEGrMEeqmCabxcsMMSg" name="Effect">
-                      <language>C++</language>
-                      <body>readyCounter++;&#xD;
-log.show(&quot;%s: ready:%d\n&quot;, getName(), readyCounter);</body>
-                    </effect>
-                    <trigger xmi:type="uml:Trigger" xmi:id="_r60VEGrMEeqmCabxcsMMSg" event="_zgNFEB2aEeiOdLlXkz7odA" port="_8H7WgGhTEeqGieUB53vJPw"/>
-                  </transition>
-                </region>
+                <region xmi:type="uml:Region" xmi:id="_qKTZsGrMEeqmCabxcsMMSg" name="Region1"/>
               </subvertex>
               <subvertex xmi:type="uml:State" xmi:id="_REjE8GhVEeqGieUB53vJPw" name="Phase2">
                 <entry xmi:type="uml:OpaqueBehavior" xmi:id="_Wr75UGhXEeqGieUB53vJPw" name="Entry">
                   <language>C++</language>
-                  <body>    log.show(&quot;%s: Sending move to phase2 legs\n&quot;, getName());
-    phase2Port.move().send();
+                  <body>log.show(&quot;%s: Sending move to phase 2 legs\n&quot;, getName());
+phase2Port.move().send();
+readyCounter = 0;
+readyMovingLegs = false;
+lastActiveMovingPhase = Phase2;
 </body>
+                </entry>
+              </subvertex>
+              <subvertex xmi:type="uml:State" xmi:id="_mgHmsG3cEequr7QZyHYfZg" name="PreFreezing">
+                <entry xmi:type="uml:OpaqueBehavior" xmi:id="_8UOMMG3cEequr7QZyHYfZg" name="Entry" isReentrant="false">
+                  <language>C++</language>
+                  <body>log.show(&quot;%i legs have finished moving, waiting for the rest...\n&quot;, readyCounter);
+if (readyMovingLegs &amp;&amp; shouldFreeze)
+{
+	freezingProtocolOutPort.readyToFreeze().send();
+}
+else if (readyMovingLegs &amp;&amp; !shouldFreeze)
+{
+	freezingProtocolOutPort.noNeedToFreeze().send();
+}</body>
+                </entry>
+              </subvertex>
+              <subvertex xmi:type="uml:State" xmi:id="_DFymoG3dEequr7QZyHYfZg" name="PostUnfreezing">
+                <entry xmi:type="uml:OpaqueBehavior" xmi:id="_Z9bH4G3sEeqL-pcoHBcZWg" name="Entry" isReentrant="false">
+                  <language>C++</language>
+                  <body>freezingProtocolOutPort.noNeedToFreeze().send();</body>
                 </entry>
               </subvertex>
             </region>
@@ -539,6 +686,9 @@ log.show(&quot;%s: ready:%d\n&quot;, getName(), readyCounter);</body>
           <subvertex xmi:type="uml:State" xmi:id="_UAMzMGhUEeqGieUB53vJPw" name="Frozen">
             <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_Xe2EZmrFEeqmCabxcsMMSg" kind="entryPoint"/>
             <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_Xe8K92rFEeqmCabxcsMMSg" kind="exitPoint"/>
+            <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_n2wNAG3dEeqOA7pNlMXY2Q" kind="exitPoint"/>
+            <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_fAQJkG3hEeqBb_w6pLDx-Q" kind="exitPoint"/>
+            <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_fAs1gG3hEeqBb_w6pLDx-Q" kind="entryPoint"/>
             <entry xmi:type="uml:OpaqueBehavior" xmi:id="_z9_TkGhWEeqGieUB53vJPw" name="Entry">
               <language>C++</language>
               <body>    log.show(&quot;%s: Freeze!\n&quot;, getName());
@@ -563,6 +713,27 @@ log.show(&quot;%s: ready:%d\n&quot;, getName(), readyCounter);</body>
           </subvertex>
         </region>
       </ownedBehavior>
+      <nestedClassifier xmi:type="uml:Enumeration" xmi:id="_G22ykG3fEeqOA7pNlMXY2Q" name="EMovingPhase">
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_Mu_qoG3fEeqOA7pNlMXY2Q" name="Phase1"/>
+        <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_N7TswG3fEeqOA7pNlMXY2Q" name="Phase2"/>
+      </nestedClassifier>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_sJdh4G3pEeqrHZvnJfGjeA" name="FreezingProtocol">
+      <packagedElement xmi:type="uml:Collaboration" xmi:id="_sJbssG3pEeqrHZvnJfGjeA" name="FreezingProtocol">
+        <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_sJjBcG3pEeqrHZvnJfGjeA" client="_sJbssG3pEeqrHZvnJfGjeA" supplier="_sJglMG3pEeqrHZvnJfGjeA" contract="_sJglMG3pEeqrHZvnJfGjeA"/>
+        <interfaceRealization xmi:type="uml:InterfaceRealization" xmi:id="_sJqWMG3pEeqrHZvnJfGjeA" client="_sJbssG3pEeqrHZvnJfGjeA" supplier="_sJnS4G3pEeqrHZvnJfGjeA" contract="_sJnS4G3pEeqrHZvnJfGjeA"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Interface" xmi:id="_sJglMG3pEeqrHZvnJfGjeA" name="FreezingProtocol"/>
+      <packagedElement xmi:type="uml:Interface" xmi:id="_sJjogG3pEeqrHZvnJfGjeA" name="FreezingProtocol~">
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_B09lAG3qEeqrHZvnJfGjeA" name="readyToFreeze"/>
+        <ownedOperation xmi:type="uml:Operation" xmi:id="_NxNfIG3rEequdfSGGP4knw" name="noNeedToFreeze"/>
+      </packagedElement>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_sJmEwG3pEeqrHZvnJfGjeA" client="_sJbssG3pEeqrHZvnJfGjeA" supplier="_sJjogG3pEeqrHZvnJfGjeA"/>
+      <packagedElement xmi:type="uml:AnyReceiveEvent" xmi:id="_sJmr0G3pEeqrHZvnJfGjeA" name="*"/>
+      <packagedElement xmi:type="uml:Interface" xmi:id="_sJnS4G3pEeqrHZvnJfGjeA" name="FreezingProtocolIO"/>
+      <packagedElement xmi:type="uml:Usage" xmi:id="_sJq9QG3pEeqrHZvnJfGjeA" client="_sJbssG3pEeqrHZvnJfGjeA" supplier="_sJnS4G3pEeqrHZvnJfGjeA"/>
+      <packagedElement xmi:type="uml:CallEvent" xmi:id="_B1DroG3qEeqrHZvnJfGjeA" operation="_B09lAG3qEeqrHZvnJfGjeA"/>
+      <packagedElement xmi:type="uml:CallEvent" xmi:id="_NxWCAG3rEequdfSGGP4knw" operation="_NxNfIG3rEequdfSGGP4knw"/>
     </packagedElement>
     <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_29q8Yx2YEeiOdLlXkz7odA">
       <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_29q8ZB2YEeiOdLlXkz7odA" source="http://www.eclipse.org/uml2/2.0.0/UML">
@@ -686,6 +857,20 @@ log.show(&quot;%s: ready:%d\n&quot;, getName(), readyCounter);</body>
   <UMLRTStateMachines:RTRegion xmi:id="_qKUn0GrMEeqmCabxcsMMSg" base_Region="_qKTZsGrMEeqmCabxcsMMSg"/>
   <UMLRTStateMachines:RTPseudostate xmi:id="_qLAkUGrMEeqmCabxcsMMSg" base_Pseudostate="_qK-IEGrMEeqmCabxcsMMSg"/>
   <UMLRTStateMachines:RTPseudostate xmi:id="_qLEOsGrMEeqmCabxcsMMSg" base_Pseudostate="_qLDAkGrMEeqmCabxcsMMSg"/>
-  <UMLRTStateMachines:RTPseudostate xmi:id="_qLH5EGrMEeqmCabxcsMMSg" base_Pseudostate="_qLGD4GrMEeqmCabxcsMMSg"/>
   <UMLRTStateMachines:RTPseudostate xmi:id="_qLMxkGrMEeqmCabxcsMMSg" base_Pseudostate="_qLK8YGrMEeqmCabxcsMMSg"/>
+  <UMLRTStateMachines:RTState xmi:id="_mgOUYG3cEequr7QZyHYfZg" base_State="_mgHmsG3cEequr7QZyHYfZg"/>
+  <UMLRTStateMachines:RTPseudostate xmi:id="_pcEacG3cEequr7QZyHYfZg" base_Pseudostate="_pcAJAG3cEequr7QZyHYfZg"/>
+  <UMLRTStateMachines:RTState xmi:id="_DF4GMG3dEequr7QZyHYfZg" base_State="_DFymoG3dEequr7QZyHYfZg"/>
+  <UMLRTStateMachines:RTPseudostate xmi:id="_IhQJwG3dEequr7QZyHYfZg" base_Pseudostate="_IhLRQG3dEequr7QZyHYfZg"/>
+  <UMLRTStateMachines:RTPseudostate xmi:id="_n3DH8G3dEeqOA7pNlMXY2Q" base_Pseudostate="_n2wNAG3dEeqOA7pNlMXY2Q"/>
+  <UMLRTStateMachines:RTPseudostate xmi:id="_fAezEG3hEeqBb_w6pLDx-Q" base_Pseudostate="_fAQJkG3hEeqBb_w6pLDx-Q"/>
+  <UMLRTStateMachines:RTPseudostate xmi:id="_fAxuAG3hEeqBb_w6pLDx-Q" base_Pseudostate="_fAs1gG3hEeqBb_w6pLDx-Q"/>
+  <UMLRealTime:RTPort xmi:id="_r4QdIG3pEeqrHZvnJfGjeA" isPublish="false" isWired="true" base_Port="_r4NZ0G3pEeqrHZvnJfGjeA"/>
+  <UMLRealTime:ProtocolContainer xmi:id="_sJfXEG3pEeqrHZvnJfGjeA" base_Package="_sJdh4G3pEeqrHZvnJfGjeA"/>
+  <UMLRealTime:RTMessageSet xmi:id="_sJhzUG3pEeqrHZvnJfGjeA" base_Interface="_sJglMG3pEeqrHZvnJfGjeA"/>
+  <UMLRealTime:RTMessageSet xmi:id="_sJk2oG3pEeqrHZvnJfGjeA" base_Interface="_sJjogG3pEeqrHZvnJfGjeA" rtMsgKind="out"/>
+  <UMLRealTime:RTMessageSet xmi:id="_sJpIEG3pEeqrHZvnJfGjeA" base_Interface="_sJnS4G3pEeqrHZvnJfGjeA" rtMsgKind="inOut"/>
+  <UMLRealTime:Protocol xmi:id="_sJrkUG3pEeqrHZvnJfGjeA" base_Collaboration="_sJbssG3pEeqrHZvnJfGjeA"/>
+  <UMLRealTime:RTPort xmi:id="_wqmKwG3pEeqrHZvnJfGjeA" isPublish="false" isWired="true" base_Port="_wqjugG3pEeqrHZvnJfGjeA"/>
+  <UMLRealTime:RTConnector xmi:id="_3qsJYW3pEeqrHZvnJfGjeA" base_Connector="_3qpGEG3pEeqrHZvnJfGjeA"/>
 </xmi:XMI>
