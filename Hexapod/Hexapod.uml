@@ -424,9 +424,22 @@ tmove = UMLRTTimespec(30, 0);</body>
           <transition xmi:type="uml:Transition" xmi:id="_h-eE4GhUEeqGieUB53vJPw" name="move" kind="external" source="_LhvJMGqxEeqwq7OvInKglw" target="_PERPQGhVEeqGieUB53vJPw">
             <effect xmi:type="uml:OpaqueBehavior" xmi:id="_K3nBkGrGEeqmCabxcsMMSg" name="Effect">
               <language>C++</language>
-              <body>    // Start movement timer
-    log.show(&quot;%s: starting movement timer\n&quot;, getName());
-    tid = timer.informIn(tmove);
+              <body>// Start movement timer
+log.show(&quot;%s: starting movement timer\n&quot;, getName());
+tid = timer.informIn(tmove);
+
+// Stiffen all legs before moving
+log.show(&quot;Stiffening all the legs before moving.\n&quot;);
+
+if (!phase1Port.stiffen().send())
+{
+	log.show(&quot;Couldn't stiffen the legs to port 1.\n&quot;);
+}
+
+if (!phase2Port.stiffen().send())
+{
+	log.show(&quot;Couldn't stiffen the legs on port 2.\n&quot;);
+}
 </body>
             </effect>
             <trigger xmi:type="uml:Trigger" xmi:id="_htX4YGhVEeqGieUB53vJPw" port="_gLMwcGhUEeqGieUB53vJPw">
@@ -464,12 +477,21 @@ tmove = UMLRTTimespec(30, 0);</body>
             <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_LhvJMGqxEeqwq7OvInKglw" kind="exitPoint"/>
             <entry xmi:type="uml:OpaqueBehavior" xmi:id="_mmiKQGhWEeqGieUB53vJPw" name="Entry">
               <language>C++</language>
-              <body>    log.show(&quot;%s: Resting...\n&quot;, getName());
-    phase1Port.relax().send();
-    phase2Port.relax().send();
-    // Set rest timer
-    log.show(&quot;%s: Setting rest timer\n&quot;, getName());
-    tid = timer.informIn(trest);
+              <body>// Realx legs
+log.show(&quot;%s: Resting...\n&quot;, getName());
+if (!phase1Port.relax().send())
+{
+	log.show(&quot;Couldn't relax the legs on port 1.\n&quot;);
+}
+
+if (!phase2Port.relax().send())
+{
+	log.show(&quot;Couldn't relax the legs on port 2.\n&quot;);
+}
+
+// Set rest timer
+log.show(&quot;%s: Setting rest timer\n&quot;, getName());
+tid = timer.informIn(trest);
 </body>
             </entry>
             <exit xmi:type="uml:OpaqueBehavior" xmi:id="_3747EGqcEeqwq7OvInKglw" name="Exit">
@@ -504,7 +526,7 @@ tmove = UMLRTTimespec(30, 0);</body>
             <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_PEeqoGhVEeqGieUB53vJPw" kind="exitPoint"/>
             <entry xmi:type="uml:OpaqueBehavior" xmi:id="_v_004GhWEeqGieUB53vJPw" name="Entry">
               <language>C++</language>
-              <body>    log.show(&quot;%s: Moving...\n&quot;, getName());
+              <body>log.show(&quot;%s: Moving...\n&quot;, getName());
 </body>
             </entry>
             <exit xmi:type="uml:OpaqueBehavior" xmi:id="_e-L40GrHEeqmCabxcsMMSg" name="Exit">
@@ -524,7 +546,7 @@ tmove = UMLRTTimespec(30, 0);</body>
                     <language>C++</language>
                     <body>readyCounter++;
 readyMovingLegs = (readyCounter >= 3);
-log.show(&quot;Moving phase 1 - > phase 2, guard triggered from %s\n&quot;, getName());
+log.show(&quot;ready() received\n&quot;);
 return readyMovingLegs;</body>
                   </specification>
                 </ownedRule>
@@ -540,7 +562,7 @@ return readyMovingLegs;</body>
                     <language>C++</language>
                     <body>readyCounter++;
 readyMovingLegs = (readyCounter >= 3);
-log.show(&quot;Moving phase 2 - > phase 1, guard triggered from %s\n&quot;, getName());
+log.show(&quot;ready() received\n&quot;);
 return readyMovingLegs;</body>
                   </specification>
                 </ownedRule>
@@ -606,7 +628,8 @@ return readyMovingLegs;</body>
               <transition xmi:type="uml:Transition" xmi:id="_z8Pl4G3iEeqCR-zQFh7yeQ" name="" kind="external" source="_mgHmsG3cEequr7QZyHYfZg" target="_mgHmsG3cEequr7QZyHYfZg">
                 <effect xmi:type="uml:OpaqueBehavior" xmi:id="_RXm3sG3jEeqCR-zQFh7yeQ" name="Effect" isReentrant="false">
                   <language>C++</language>
-                  <body>readyCounter++;
+                  <body>log.show(&quot;ready() received\n&quot;);
+readyCounter++;
 readyMovingLegs = (readyCounter >= 3);</body>
                 </effect>
                 <trigger xmi:type="uml:Trigger" xmi:id="_GFSO4G3jEeqCR-zQFh7yeQ" event="_zgNFEB2aEeiOdLlXkz7odA" port="_5Ggz8GhTEeqGieUB53vJPw _8H7WgGhTEeqGieUB53vJPw"/>
@@ -641,7 +664,11 @@ readyMovingLegs = (readyCounter >= 3);</body>
                 <entry xmi:type="uml:OpaqueBehavior" xmi:id="_SM2e4GhXEeqGieUB53vJPw" name="Entry">
                   <language>C++</language>
                   <body>log.show(&quot;%s: Sending move to phase 1 legs\n&quot;, getName());
-phase1Port.move().send();
+if (!phase1Port.move().send())
+{
+	log.show(&quot;Couldn't move the legs on port 1.\n&quot;);
+}
+
 readyCounter = 0;
 readyMovingLegs = false;
 lastActiveMovingPhase = Phase1;
@@ -654,7 +681,11 @@ lastActiveMovingPhase = Phase1;
                 <entry xmi:type="uml:OpaqueBehavior" xmi:id="_Wr75UGhXEeqGieUB53vJPw" name="Entry">
                   <language>C++</language>
                   <body>log.show(&quot;%s: Sending move to phase 2 legs\n&quot;, getName());
-phase2Port.move().send();
+if (!phase2Port.move().send())
+{
+	log.show(&quot;Couldn't move legs on port 2.\n&quot;);
+}
+
 readyCounter = 0;
 readyMovingLegs = false;
 lastActiveMovingPhase = Phase2;
@@ -667,18 +698,27 @@ lastActiveMovingPhase = Phase2;
                   <body>log.show(&quot;%i legs have finished moving, waiting for the rest...\n&quot;, readyCounter);
 if (readyMovingLegs &amp;&amp; shouldFreeze)
 {
-	freezingProtocolOutPort.readyToFreeze().send();
+	if (!freezingProtocolOutPort.readyToFreeze().send())
+	{
+		log.show(&quot;Internal protocol message readyToFreeze() failed!\n&quot;);
+	}
 }
 else if (readyMovingLegs &amp;&amp; !shouldFreeze)
 {
-	freezingProtocolOutPort.noNeedToFreeze().send();
+	if (!freezingProtocolOutPort.noNeedToFreeze().send())
+	{
+		log.show(&quot;Internal protocol message noNeedToFreeze() failed!\n&quot;);
+	}
 }</body>
                 </entry>
               </subvertex>
               <subvertex xmi:type="uml:State" xmi:id="_DFymoG3dEequr7QZyHYfZg" name="PostUnfreezing">
                 <entry xmi:type="uml:OpaqueBehavior" xmi:id="_Z9bH4G3sEeqL-pcoHBcZWg" name="Entry" isReentrant="false">
                   <language>C++</language>
-                  <body>freezingProtocolOutPort.noNeedToFreeze().send();</body>
+                  <body>if (!freezingProtocolOutPort.noNeedToFreeze().send())
+{
+	log.show(&quot;Internal protocol noNeedToFreeze() failed.\n&quot;);
+}</body>
                 </entry>
               </subvertex>
             </region>
@@ -691,9 +731,15 @@ else if (readyMovingLegs &amp;&amp; !shouldFreeze)
             <connectionPoint xmi:type="uml:Pseudostate" xmi:id="_fAs1gG3hEeqBb_w6pLDx-Q" kind="entryPoint"/>
             <entry xmi:type="uml:OpaqueBehavior" xmi:id="_z9_TkGhWEeqGieUB53vJPw" name="Entry">
               <language>C++</language>
-              <body>    log.show(&quot;%s: Freeze!\n&quot;, getName());
-    phase1Port.freeze().send();
-    phase2Port.freeze().send();
+              <body>log.show(&quot;%s: Freeze!\n&quot;, getName());
+if (!phase1Port.freeze().send())
+{
+	log.show(&quot;Couldn't freeze the legs on port 1.\n&quot;);
+}
+if (!phase2Port.freeze().send())
+{
+	log.show(&quot;Couldn't freeze the legs on port 2.\n&quot;);
+}
 </body>
             </entry>
             <exit xmi:type="uml:OpaqueBehavior" xmi:id="_QqUfgGqkEeqwq7OvInKglw" name="Exit">
